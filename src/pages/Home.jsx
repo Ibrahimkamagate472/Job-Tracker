@@ -5,7 +5,6 @@ import JobForm from "../components/JobForm";
 export default function Home(){
     return(
         <>
-            <JobForm/>
             <Container>
                 <Heading size="4xl">Make Job Tracking Easier</Heading>
                 <Button variant='surface' as={Link} to='./JobList.jsx'>Login in</Button>
