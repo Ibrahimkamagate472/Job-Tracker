@@ -1,4 +1,5 @@
 import { useState } from "react"
+import {Input, Button} from "@chakra-ui/react"
 
 const JobForm = ({addJob}) => {
     const [company, setCompany] = useState("")
@@ -26,19 +27,21 @@ const JobForm = ({addJob}) => {
         <form onSubmit={handleSubmit}>
             <label>
                 Company:
-                <input type="text" placeholder="Company name" value={company} 
-                onChange={(e) => setCompany(e.target.value)} required/>
+                <Input type="text" placeholder="Company name" value={company} 
+                onChange={(e) => setCompany(e.target.value)} required width="300px"/>
                 <br/>
                 Position:
-                <input type="text" placeholder="position" value={position} 
-                onChange={(e) => setPosition(e.target.value)} required/>
+                <Input type="text" placeholder="position" value={position} 
+                onChange={(e) => setPosition(e.target.value)} required width="300px"/>
                 <br/>
                 Date applied:
-                <input type="text" placeholder="Date" value={dateApplied} 
-                onChange={(e) => setDateApplied(e.target.value)}/>
-
+                <Input type="text" placeholder="Date" value={dateApplied} 
+                onChange={(e) => setDateApplied(e.target.value)} width="300px"/>
+                <br/>
+                Status:
             </label>
-            <button type="submit">Add</button>
+            <br/>
+            <Button type="submit">Add</Button>
         </form>
     </div>
   )

@@ -30,12 +30,13 @@ export default function SecondPage(){
     ]
     const [jobs, dispatch] = useReducer(jobReducer, initialJobs)
 
-    const addJob = (name, position, date) =>{
+    const addJob = (name, position, date, response) =>{
         dispatch({
             type:"add",
             name,
             position,
-            date})
+            date,
+            response})
     }
 
 
