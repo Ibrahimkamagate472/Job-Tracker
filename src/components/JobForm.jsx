@@ -5,7 +5,7 @@ const JobForm = ({addJob}) => {
     const [company, setCompany] = useState("")
     const [position, setPosition] = useState("")
     const [dateApplied, setDateApplied] = useState("")
-    const [response, setResponse] = useState(false)
+    const [response, setResponse] = useState("")
 
 
     const handleSubmit = (e) =>{
@@ -15,11 +15,11 @@ const JobForm = ({addJob}) => {
             return
         }
 
-        addJob(company, position, dateApplied)
+        addJob(company, position, dateApplied, response)
         setCompany("")
         setPosition("")
         setDateApplied("")
-        setResponse(false)
+        setResponse("In progess")
     }
 
   return (
@@ -39,6 +39,16 @@ const JobForm = ({addJob}) => {
                 onChange={(e) => setDateApplied(e.target.value)} width="300px"/>
                 <br/>
                 Status:
+                <select name={response} 
+                value={response}
+                onChange={(e) => setResponse(e.target.value)}>
+                    <option value="In progress">In progress</option>
+                    <option value="Denied">Denied</option>
+                    <option value="In person interview">In person interview</option>
+                    <option value="Coding assignment">Coding assignment</option>
+                    <option value="Virtual Interview">Virtual Interview</option>
+                    <option value="Accepted">Accepted</option>
+                 </select>
             </label>
             <br/>
             <Button type="submit">Add</Button>
