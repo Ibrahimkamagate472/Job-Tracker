@@ -1,5 +1,3 @@
-// import { useState } from "react";
-
 import { useReducer } from "react"
 import { JobList, jobReducer, JobForm } from "../components/index"
 
@@ -36,11 +34,27 @@ export default function SecondPage(){
             response})
     }
 
+    const deleteJob = (index) =>{
+        dispatch({
+            type:"delete",
+            index
+        })
+    }
+    const editJob = (index, name, position, date) =>{
+        dispatch({
+            type:"edit",
+            index,
+            name,
+            position,
+            date
+        })
+    }
+
 
     return (
         <div>
             <JobForm addJob = {addJob}/>
-            <JobList jobs={jobs}/>
+            <JobList jobs={jobs} deleteJob={deleteJob} editJob={editJob}/>
         </div>
     )
 

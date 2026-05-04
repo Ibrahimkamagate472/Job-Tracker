@@ -1,6 +1,6 @@
-import { Table, Box, Select, Button } from "@chakra-ui/react"
+import { Table} from "@chakra-ui/react"
 import Job from "./Job"
-const JobList = ({jobs = []}) => {
+const JobList = ({jobs = [], deleteJob, editJob}) => {
     if(jobs.length === 0){
         return <p>Currently no jobs to track.</p>
     }
@@ -17,7 +17,8 @@ const JobList = ({jobs = []}) => {
         </Table.Row>
       </Table.Header>
       <Table.Body>
-          {jobs.map((job, index) => <Job key={job.id} index={index} {...job}/>)}
+          {jobs.map((job, index) => <Job key={job.id} index={index} 
+          {...job} deleteJob={deleteJob} editJob={editJob}/>)}
       </Table.Body>
     </Table.Root>
   )

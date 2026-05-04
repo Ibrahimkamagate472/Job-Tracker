@@ -1,5 +1,5 @@
 import { useState } from "react"
-import {Input, Button} from "@chakra-ui/react"
+import {Input, Button, Field} from "@chakra-ui/react"
 
 const JobForm = ({addJob}) => {
     const [company, setCompany] = useState("")
@@ -11,10 +11,14 @@ const JobForm = ({addJob}) => {
     const handleSubmit = (e) =>{
         e.preventDefault()
 
-        if(company.trim() === "" || position.trim() === "" || dateApplied.trim() === ""){
+        if(company.trim() === "" || position.trim() === ""){
             return
         }
 
+        if(dateApplied.trim() === ""){
+            setDateApplied("")
+        }
+        
         addJob(company, position, dateApplied, response)
         setCompany("")
         setPosition("")
@@ -25,20 +29,20 @@ const JobForm = ({addJob}) => {
   return (
     <div>
         <form onSubmit={handleSubmit}>
-            <label>
-                Company:
+            <Field.Root>
+                <Field.Label>Company</Field.Label>
                 <Input type="text" placeholder="Company name" value={company} 
                 onChange={(e) => setCompany(e.target.value)} required width="300px"/>
-                <br/>
-                Position:
-                <Input type="text" placeholder="position" value={position} 
+                
+                <Field.Label>Position</Field.Label>
+                <Input type="text" placeholder="Position" value={position} 
                 onChange={(e) => setPosition(e.target.value)} required width="300px"/>
-                <br/>
-                Date applied:
+           
+                <Field.Label>Date applied</Field.Label>
                 <Input type="text" placeholder="Date" value={dateApplied} 
                 onChange={(e) => setDateApplied(e.target.value)} width="300px"/>
-                <br/>
-                Status:
+               
+                <Field.Label>Status</Field.Label>
                 <select name={response} 
                 value={response}
                 onChange={(e) => setResponse(e.target.value)}>
@@ -48,10 +52,9 @@ const JobForm = ({addJob}) => {
                     <option value="Coding assignment">Coding assignment</option>
                     <option value="Virtual Interview">Virtual Interview</option>
                     <option value="Accepted">Accepted</option>
-                 </select>
-            </label>
-            <br/>
-            <Button type="submit">Add</Button>
+                    </select>
+                <Button type="submit" py={4}>Add</Button>
+            </Field.Root>
         </form>
     </div>
   )

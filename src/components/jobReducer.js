@@ -12,10 +12,15 @@ export const jobReducer = (jobs, action) =>{
         return [...jobs, newJob] 
 
     }else if(action.type === "edit"){
-        return
+        return jobs.map((job, idx) =>
+            idx === action.index
+            ? { ...job, 
+            name: action.name, position: action.position ,date: action.date }
+            : job
+        )
 
     }else if(action.type === "delete"){
-        return
+        return  jobs.filter((job, index) => index !== action.index)
     }
     return jobs
 }
