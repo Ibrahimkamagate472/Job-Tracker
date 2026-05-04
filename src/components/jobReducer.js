@@ -7,7 +7,10 @@ export const jobReducer = (jobs, action) =>{
             name: action.name,
             position: action.position,
             date: action.date,
-            response: action.response
+            response: action.response,
+            username: action.username,
+            password: action.password,
+            listing: action.listing
         }
         return [...jobs, newJob] 
 
@@ -15,7 +18,9 @@ export const jobReducer = (jobs, action) =>{
         return jobs.map((job, idx) =>
             idx === action.index
             ? { ...job, 
-            name: action.name, position: action.position ,date: action.date }
+            name: action.name, position: action.position ,date: action.date ,
+            username: action.username, password: action.password, listing: action.listing
+            }
             : job
         )
 

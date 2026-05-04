@@ -12,6 +12,9 @@ const JobList = ({jobs = [], deleteJob, editJob}) => {
           <Table.ColumnHeader>Position</Table.ColumnHeader>
           <Table.ColumnHeader>Date Applied</Table.ColumnHeader>
           <Table.ColumnHeader>Status</Table.ColumnHeader>
+          <Table.ColumnHeader>Username/Email</Table.ColumnHeader>
+          <Table.ColumnHeader>Password</Table.ColumnHeader>
+          <Table.ColumnHeader>Job Listing</Table.ColumnHeader>
           <Table.ColumnHeader>Edit</Table.ColumnHeader>
           <Table.ColumnHeader>Delete</Table.ColumnHeader>
         </Table.Row>

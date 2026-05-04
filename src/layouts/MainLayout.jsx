@@ -1,4 +1,4 @@
-import { Flex, Heading, Button, Container, Box, HStack, Spacer } from "@chakra-ui/react";
+import { Flex, Heading, Button, Container, Box, HStack, Spacer, ButtonGroup } from "@chakra-ui/react";
 import { Link, Outlet } from "react-router-dom";
 import { CheckCheck } from 'lucide-react'
 const MainLayout = () => {
@@ -13,8 +13,10 @@ const MainLayout = () => {
                         </HStack>
                         <Spacer/>
                         <HStack gap={4}>
-                        <Button as={Link} to="/secondpage">Tracker</Button>
+                        <ButtonGroup colorPalette="red">
+                        <Button as={Link} to="/secondpage" variant="surface">Tracker</Button>
                         <Button>Login</Button>
+                        </ButtonGroup>
                     </HStack>
                 </Flex>
             </Container>

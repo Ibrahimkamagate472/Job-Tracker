@@ -1,14 +1,17 @@
 import { useState } from "react"
-import { Table, Button, Input } from "@chakra-ui/react"
-const Job = ({name, position, date, response, deleteJob, index, editJob}) => {
+import { Table, Button, Input, Link } from "@chakra-ui/react"
+const Job = ({name, position, date, response, username, password, listing, deleteJob, index, editJob}) => {
   const [newResponse, setNewResponse] = useState(response)
   const [isEditing, setIsEditing] = useState(false)
   const [newName, setNewName] = useState(name)
   const [newPosition, setNewPosition] = useState(position)
   const [newDate, setNewDate] = useState(date)
+  const [newUsername, SetNewUsername] = useState(username)
+  const [newPassword, setNewPassword] = useState(password)
+  const [newListing, setNewListing] = useState(listing)
 
   const handleSave = () =>{
-    editJob(index, newName, newPosition, newDate)
+    editJob(index, newName, newPosition, newDate, newUsername, newPassword, newListing)
     setIsEditing(false)
   } 
 
@@ -23,7 +26,7 @@ const Job = ({name, position, date, response, deleteJob, index, editJob}) => {
   const onCancel = () =>{ setIsEditing(false)}
 
   return (
-    <Table.Row>
+    <Table.Row colorPalette="red.300">
       <Table.Cell>{isEditing ? 
         (<Input value={newName} onChange={(e) => setNewName(e.target.value)} 
         onKeyDown={handleKey}/>) : (name)}
@@ -49,12 +52,26 @@ const Job = ({name, position, date, response, deleteJob, index, editJob}) => {
         <option value="Ghosted">Ghosted</option>
         </select>
       </Table.Cell>
+      
+
+      <Table.Cell>{isEditing ? 
+        (<Input value={newUsername} onChange={(e) => SetNewUsername(e.target.value)} 
+        onKeyDown={handleKey}/>) : username}</Table.Cell>
+
+      <Table.Cell>{isEditing ? 
+        (<Input value={newPassword} onChange={(e) => setNewPassword(e.target.value)} 
+        onKeyDown={handleKey}/>) : (password)}</Table.Cell>
+
+      <Table.Cell>{isEditing ? 
+        (<Input value={newListing} onChange={(e) => setNewListing(e.target.value)} 
+        onKeyDown={handleKey}/>) : (<Link href={listing} target="_blank">Listing</Link>)}</Table.Cell>
+      
       <Table.Cell>
         {isEditing ? (<Button onClick={handleSave}>Save</Button>):
-        <Button onClick={() => setIsEditing(true)}>Edit</Button>}
+        <Button onClick={() => setIsEditing(true)} colorPalette="red">Edit</Button>}
       </Table.Cell>
       <Table.Cell>
-        <Button onClick={() => deleteJob(index)}>Delete</Button>
+        <Button onClick={() => deleteJob(index)} colorPalette="red">Delete</Button>
       </Table.Cell>
     </Table.Row>
   )

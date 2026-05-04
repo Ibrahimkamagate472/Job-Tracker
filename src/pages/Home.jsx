@@ -1,7 +1,6 @@
 import { ButtonGroup, Heading, Button, Container, Box, Text, Stack, HStack, Icon, Image, SimpleGrid } from "@chakra-ui/react";
 import { Link } from "react-router-dom";
 import { MoveRight, Check } from 'lucide-react'
-import { Navbar } from "../components";
 
 
 
