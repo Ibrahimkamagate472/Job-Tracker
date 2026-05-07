@@ -1,83 +1,128 @@
-import { useReducer } from "react"
-import { JobList, jobReducer, JobForm, JobCounter} from "../components/index"
-import { Flex } from "@chakra-ui/react"
+import { useEffect, useReducer } from 'react'
+import { JobList, jobReducer, JobForm, JobCounter } from '../components/index'
+import { Flex } from '@chakra-ui/react'
+import axios from 'axios'
 
-export default function SecondPage(){
-    const initialJobs  = [
-    {
-        id:1,
-        name: "Google",
-        position: "Software Engineering",
-        date: "04/01/2026",
-        response: "In progess",
-        username: "Sample",
-        password: "sample",
-        listing: "https://google.com"
-    },{
-        id:2,
-        name: "Amazon",
-        position: "Software Devlopment",
-        date: "04/07/2026",
-        response: "Denied",
-        username: "Sample",
-        password: "sample",
-        listing: "https://google.com"
-    },{
-        id:3,
-        name: "Hunter",
-        position: "IT",
-        date: "04/07/2026",
-        response: "Coding assignment",
-        username: "Sample",
-        password: "sample",
-        listing: "https://google.com"
-    }
-    ]
-    const [jobs, dispatch] = useReducer(jobReducer, initialJobs)
+export default function SecondPage() {
+  const [jobs, dispatch] = useReducer(jobReducer, [])
 
-    const addJob = (name, position, date, response, username, password, listing) =>{
-        dispatch({
-            type:"add",
-            name,
-            position,
-            date,
-            response,
-            username,
-            password,
-            listing
+  useEffect(() => {
+    const getJobs = async () => {
+      try {
+        const token = localStorage.getItem('token')
+        const { data } = await axios.get('http://localhost:8000/jobs', {
+          headers: {
+            Authorization: `token ${token}`,
+          },
         })
-    }
 
-    const deleteJob = (index) =>{
         dispatch({
-            type:"delete",
-            index
+          type: 'set',
+          jobs: data,
         })
-    }
-    const editJob = (index, name, position, date, username, password, listing) =>{
+      } catch {
         dispatch({
-            type:"edit",
-            index,
-            name,
-            position,
-            date,
-            username,
-            password,
-            listing
+          type: 'set',
+          jobs: [],
         })
+      }
     }
+    getJobs()
+  }, [])
 
-
-    return (
-        <div>
-            <Flex gap={10}>
-            <JobForm addJob = {addJob}/>
-            <JobCounter jobs={jobs}/>
-            </Flex>
-            <Flex mt={30}>
-            <JobList jobs={jobs} deleteJob={deleteJob} editJob={editJob}/>
-            </Flex>
-        </div>
+  const addJob = async (
+    name,
+    position,
+    date,
+    response,
+    username,
+    password,
+    listing
+  ) => {
+    const token = localStorage.getItem('token')
+    const { data } = await axios.post(
+      `http://localhost:8000/jobs`,
+      {
+        name,
+        position,
+        date,
+        response,
+        username,
+        password,
+        listing,
+      },
+      {
+        headers: {
+          Authorization: `token ${token}`,
+        },
+      }
     )
+    dispatch({
+      type: 'set',
+      jobs: [...jobs, data],
+    })
+  }
 
+  const deleteJob = async (index) => {
+    const job = jobs[index]
+    const token = localStorage.getItem('token')
+    await axios.delete(`http://localhost:8000/jobs/${job.id}`, {
+      headers: {
+        Authorization: `token ${token}`,
+      },
+    })
+
+    dispatch({
+      type: 'set',
+      jobs: jobs.filter((j) => j.id !== job.id),
+    })
+  }
+
+  const editJob = async (
+    index,
+    name,
+    position,
+    date,
+    username,
+    password,
+    listing
+  ) => {
+    const job = jobs[index]
+
+    const token = localStorage.getItem('token')
+
+    const { data } = await axios.put(
+      `http://localhost:8000/jobs/${job.id}`,
+      {
+        ...job,
+        name,
+        position,
+        date,
+        username,
+        password,
+        listing,
+      },
+      {
+        headers: {
+          Authorization: `token ${token}`,
+        },
+      }
+    )
+    dispatch({
+      type: 'set',
+      jobs: jobs.map((j) => (j.id === job.id ? data : j)),
+    })
+  }
+
+  return (
+    <div>
+      <Flex gap={10}>
+        <JobForm addJob={addJob} />
+        <JobCounter jobs={jobs} />
+      </Flex>
+      <Flex mt={30}>
+        <JobList jobs={jobs} deleteJob={deleteJob} editJob={editJob} />
+      </Flex>
+    </div>
+  )
 }

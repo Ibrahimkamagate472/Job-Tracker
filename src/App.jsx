@@ -1,19 +1,15 @@
-import { Routes, Route } from "react-router-dom";
-import Home from "./pages/Home";
-import SecondPage from "./pages/SecondPage";
-import MainLayout from "./layouts/MainLayout";
-
-
+import { Routes, Route } from 'react-router-dom'
+import { Home, SecondPage, LoginPage } from './pages/index'
+import MainLayout from './layouts/MainLayout'
 
 export default function App() {
-  return(    
-  
+  return (
     <Routes>
-      <Route path="/" element={<MainLayout/>}>
-        <Route index path="/" element={<Home />} />
-          <Route index path="/secondpage" element={<SecondPage />} />
-        
+      <Route path='/' element={<MainLayout />}>
+        <Route index path='/' element={<Home />} />
+        <Route path='jobs' element={<SecondPage />} />
+        <Route path='login' element={<LoginPage />} />
       </Route>
     </Routes>
-  );
+  )
 }

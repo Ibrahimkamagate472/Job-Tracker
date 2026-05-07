@@ -1,29 +1,55 @@
-import { Flex, Heading, Button, Container, Box, HStack, Spacer, ButtonGroup } from "@chakra-ui/react";
-import { Link, Outlet } from "react-router-dom";
+import {
+  Flex,
+  Heading,
+  Button,
+  Container,
+  Box,
+  HStack,
+  Spacer,
+  ButtonGroup,
+} from '@chakra-ui/react'
+import { Link, Outlet, useNavigate } from 'react-router-dom'
 import { CheckCheck } from 'lucide-react'
 const MainLayout = () => {
+  const token = localStorage.getItem('token')
+  const navigate = useNavigate()
   return (
-    <Box bg="gray.300" minH="100vh">
-        <Box bg="white" shadow="sm">
-            <Container py={3}>
-                <Flex align="center">
-                    <HStack gap={2} as={Link} to="/">
-                        <CheckCheck/>
-                        <Heading>Job Tracker</Heading>
-                        </HStack>
-                        <Spacer/>
-                        <HStack gap={4}>
-                        <ButtonGroup colorPalette="red">
-                        <Button as={Link} to="/secondpage" variant="surface">Tracker</Button>
-                        <Button>Login</Button>
-                        </ButtonGroup>
-                    </HStack>
-                </Flex>
-            </Container>
-        </Box>
-        <Box flex="1" bg="gray.50" as="main" minH="100vh" p={4}>
-            <Outlet/>
-        </Box>
+    <Box bg='gray.300' minH='100vh'>
+      <Box bg='white' shadow='sm'>
+        <Container py={3}>
+          <Flex align='center'>
+            <HStack gap={2} as={Link} to='/'>
+              <CheckCheck />
+              <Heading>Job Tracker</Heading>
+            </HStack>
+            <Spacer />
+            <HStack gap={4}>
+              <ButtonGroup colorPalette='red'>
+                <Button as={Link} to='/jobs' variant='surface'>
+                  Tracker
+                </Button>
+                {token ? (
+                  <Button
+                    onClick={() => {
+                      localStorage.removeItem('token')
+                      navigate('/')
+                    }}
+                  >
+                    Logout
+                  </Button>
+                ) : (
+                  <Button as={Link} to='/login'>
+                    Login
+                  </Button>
+                )}
+              </ButtonGroup>
+            </HStack>
+          </Flex>
+        </Container>
+      </Box>
+      <Box flex='1' bg='gray.50' as='main' minH='100vh' p={4}>
+        <Outlet />
+      </Box>
     </Box>
   )
 }
