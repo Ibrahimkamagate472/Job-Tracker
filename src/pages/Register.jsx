@@ -17,7 +17,7 @@ const loginSchema = z.object({
   password: z.string().min(8, 'Must be 8 letter'),
 })
 
-const LoginPage = () => {
+const Register = () => {
   const navigate = useNavigate()
   const {
     register,
@@ -30,12 +30,14 @@ const LoginPage = () => {
 
   const onSubmit = handleSubmit(async (values) => {
     try {
+      await axios.post('http://localhost:8000/auth/register', values)
       const response = await axios.post(
         'http://localhost:8000/auth/login',
         values
       )
 
       const token = response.data.token
+      console.log(token)
       if (token) {
         localStorage.setItem('token', token)
         navigate('/jobs')
@@ -44,7 +46,7 @@ const LoginPage = () => {
       if (err.response) {
         const errorMessage = err.response.data.error
 
-        if (errorMessage === 'User is not found') {
+        if (errorMessage === 'Email is already registered') {
           setError('email', { message: errorMessage })
         } else {
           setError('password', { message: errorMessage })
@@ -57,7 +59,7 @@ const LoginPage = () => {
     <Container>
       <form onSubmit={onSubmit}>
         <Stack maxW='md' mx='auto' my='10' colorPalette='red'>
-          <Heading>Login</Heading>
+          <Heading>Create account</Heading>
           <Field.Root invalid={!!errors.email}>
             <Field.Label>Email</Field.Label>
             <Input placeholder='Enter your email' {...register('email')} />
@@ -74,17 +76,10 @@ const LoginPage = () => {
             <Field.ErrorText>{errors.password?.message}</Field.ErrorText>
           </Field.Root>
 
-          <Button type='submit'>Login</Button>
-          <Button
-            onClick={() => {
-              navigate('/register')
-            }}
-          >
-            Register
-          </Button>
+          <Button type='submit'>Create Account</Button>
         </Stack>
       </form>
     </Container>
   )
 }
-export default LoginPage
+export default Register

@@ -1,5 +1,5 @@
 import { Routes, Route } from 'react-router-dom'
-import { Home, SecondPage, LoginPage } from './pages/index'
+import { Home, SecondPage, LoginPage, Register } from './pages/index'
 import MainLayout from './layouts/MainLayout'
 
 export default function App() {
@@ -9,6 +9,7 @@ export default function App() {
         <Route index path='/' element={<Home />} />
         <Route path='jobs' element={<SecondPage />} />
         <Route path='login' element={<LoginPage />} />
+        <Route path='register' element={<Register />} />
       </Route>
     </Routes>
   )
