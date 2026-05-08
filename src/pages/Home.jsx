@@ -11,10 +11,21 @@ import {
   Image,
   SimpleGrid,
 } from '@chakra-ui/react'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import { MoveRight, Check } from 'lucide-react'
 
 export default function Home() {
+  const token = localStorage.getItem('token')
+  const navigate = useNavigate()
+
+  const handleClick = () => {
+    if (token) {
+      navigate('/jobs')
+    } else {
+      navigate('/login')
+    }
+  }
+
   return (
     <Container centerContent py={20}>
       <SimpleGrid columns={{ base: 1, md: 2 }} gap={6}>
@@ -24,10 +35,10 @@ export default function Home() {
             Finding a job is hard enough, tracking it shouldn't be
           </Text>
           <ButtonGroup colorPalette='red' my={6}>
-            <Button variant='surface' as={Link} to='/jobs'>
+            <Button variant='surface' onClick={handleClick}>
               Go to Tracker
             </Button>
-            <Button as={Link} to='/login'>
+            <Button onClick={handleClick}>
               Login <MoveRight />{' '}
             </Button>
           </ButtonGroup>

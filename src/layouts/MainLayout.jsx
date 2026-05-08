@@ -13,6 +13,14 @@ import { CheckCheck } from 'lucide-react'
 const MainLayout = () => {
   const token = localStorage.getItem('token')
   const navigate = useNavigate()
+
+  const handleClick = () => {
+    if (token) {
+      navigate('/jobs')
+    } else {
+      navigate('/login')
+    }
+  }
   return (
     <Box bg='gray.300' minH='100vh'>
       <Box bg='white' shadow='sm'>
@@ -25,7 +33,7 @@ const MainLayout = () => {
             <Spacer />
             <HStack gap={4}>
               <ButtonGroup colorPalette='red'>
-                <Button as={Link} to='/jobs' variant='surface'>
+                <Button onClick={handleClick} variant='surface'>
                   Tracker
                 </Button>
                 {token ? (

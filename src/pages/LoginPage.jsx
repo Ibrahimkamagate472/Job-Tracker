@@ -5,6 +5,7 @@ import {
   Stack,
   Button,
   Heading,
+  ButtonGroup,
 } from '@chakra-ui/react'
 import { zodResolver } from '@hookform/resolvers/zod'
 import axios from 'axios'
@@ -73,15 +74,19 @@ const LoginPage = () => {
             />
             <Field.ErrorText>{errors.password?.message}</Field.ErrorText>
           </Field.Root>
-
-          <Button type='submit'>Login</Button>
-          <Button
-            onClick={() => {
-              navigate('/register')
-            }}
-          >
-            Register
-          </Button>
+          <ButtonGroup mx='auto'>
+            <Button type='submit' w='100px'>
+              Login
+            </Button>
+            <Button
+              onClick={() => {
+                navigate('/register')
+              }}
+              w='100px'
+            >
+              Register
+            </Button>
+          </ButtonGroup>
         </Stack>
       </form>
     </Container>

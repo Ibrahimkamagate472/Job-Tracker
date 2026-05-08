@@ -27,6 +27,7 @@ const Job = ({
       newName,
       newPosition,
       newDate,
+      newResponse,
       newUsername,
       newPassword,
       newListing
@@ -46,6 +47,20 @@ const Job = ({
     setIsEditing(false)
   }
 
+  const handleChange = (e) => {
+    const updatedResponse = e.target.value
+    setNewResponse(updatedResponse)
+    editJob(
+      index,
+      newName,
+      newPosition,
+      newDate,
+      updatedResponse,
+      newUsername,
+      newPassword,
+      newListing
+    )
+  }
   return (
     <Table.Row colorPalette='red.300'>
       <Table.Cell>
@@ -86,15 +101,33 @@ const Job = ({
         <select
           name={response}
           value={newResponse}
-          onChange={(e) => setNewResponse(e.target.value)}
+          onChange={(e) => handleChange(e)}
+          style={{
+            backgroundColor:
+              newResponse === 'Accepted'
+                ? '#82EF04'
+                : newResponse === 'Denied'
+                ? 'lightcoral'
+                : newResponse === 'In progress'
+                ? 'khaki'
+                : newResponse === 'Ghosted'
+                ? '#EF7104'
+                : newResponse === 'In person interview'
+                ? '#A9EF04'
+                : newResponse === 'Virtual Interview'
+                ? '#D1EF04'
+                : newResponse === 'Coding assignment'
+                ? '#EFE604'
+                : 'white',
+          }}
         >
           <option value='In progress'>In progress</option>
-          <option value='Denied'>Denied</option>
-          <option value='In person interview'>In person interview</option>
           <option value='Coding assignment'>Coding assignment</option>
           <option value='Virtual Interview'>Virtual Interview</option>
+          <option value='In person interview'>In person interview</option>
           <option value='Accepted'>Accepted</option>
           <option value='Ghosted'>Ghosted</option>
+          <option value='Denied'>Denied</option>
         </select>
       </Table.Cell>
 

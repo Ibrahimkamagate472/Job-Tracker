@@ -83,6 +83,7 @@ export default function SecondPage() {
     name,
     position,
     date,
+    response,
     username,
     password,
     listing
@@ -98,6 +99,7 @@ export default function SecondPage() {
         name,
         position,
         date,
+        response,
         username,
         password,
         listing,
