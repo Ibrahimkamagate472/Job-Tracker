@@ -38,9 +38,20 @@ export default function Home() {
             <Button variant='surface' onClick={handleClick}>
               Go to Tracker
             </Button>
-            <Button onClick={handleClick}>
-              Login <MoveRight />{' '}
-            </Button>
+            {token ? (
+              <Button
+                onClick={() => {
+                  localStorage.removeItem('token')
+                  navigate('/')
+                }}
+              >
+                Logout
+              </Button>
+            ) : (
+              <Button onClick={handleClick}>
+                Login <MoveRight />{' '}
+              </Button>
+            )}
           </ButtonGroup>
           <HStack>
             <Icon as={Check} color='green.600' />
