@@ -9,8 +9,8 @@ Applied, Interviewing, Offer, and Rejected.
 ## Table of Contents
 - [Build With](#build-with)
 - [System Desgin](#system-desgin)
-  -[Frontend](#frontend)
-  -[Backend](#backend)
+  - [Frontend](#frontend)
+  - [Backend](#backend)
 - [Executing program](#executing-program)
 - [Contact](#contact)
   
